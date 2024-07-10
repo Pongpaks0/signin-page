@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 // Encrypt password before saving
 userSchema.pre('save', function (next) {
     if (this.isModified('password')) {
-        this.password = CryptoJS.AES.encrypt(this.password, 'your-secret-key').toString();
+        this.password = CryptoJS.AES.encrypt(this.password, process.env.AES_SECRET_KEY).toString();
     }
     next();
 });

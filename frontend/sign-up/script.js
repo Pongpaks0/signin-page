@@ -3,9 +3,6 @@ const emailError = document.getElementById('email-error');
 const passwordInput = document.getElementById('password');
 const passwordError = document.getElementById('password-error');
 
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const phoneRegex = /^\+[0-9]{1,3}\.[0-9]{1,14}$/;
-
 emailInput.addEventListener('blur', function () {
     const email = emailInput.value.trim();
     if (!validateEmail(email)) {
@@ -24,7 +21,7 @@ passwordInput.addEventListener('blur', function () {
     }
 });
 
-document.getElementById('login-form').addEventListener('submit', async function (event) {
+document.getElementById('form').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const email = emailInput.value.trim();
@@ -44,8 +41,9 @@ document.getElementById('login-form').addEventListener('submit', async function 
         passwordError.textContent = '';
     }
 
+    console.log(API_URL)
     try {
-        const response = await fetch('/api/signup', {
+        const response = await fetch(`${API_URL}/api/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +66,7 @@ document.getElementById('login-form').addEventListener('submit', async function 
 
 function validateEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex = /^\+[0-9]{1,3}\.[0-9]{1,14}$/;
+    const phoneRegex = /^[0-9]{1,14}$/;
     return emailRegex.test(email) || phoneRegex.test(email);
 }
 
