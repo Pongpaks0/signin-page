@@ -22,11 +22,31 @@ db.once('open', () => {
     console.log('Connected to MongoDB');
 });
 
-app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
+app.post('/api/signup', async (req, res) => {
+    const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ username });
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'email already exists' });
+        }
+        const encryptedPassword = CryptoJS.AES.encrypt(password, process.env.AES_SECRET_KEY).toString();
+
+        const newUser = new User({ email, password: encryptedPassword });
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
