@@ -56,10 +56,10 @@ document.getElementById('form').addEventListener('submit', async function (event
         }
 
         const result = await response.json();
-        alert(result.message); // Display success message (you may redirect or perform other actions here)
+        alert(result.message);
     } catch (error) {
-        console.error('Error:', error.message);
-        // Handle error (display error message, reset form, etc.)
+        alert('Incorrect email/phone or password');
+
     }
 });
 

@@ -47,7 +47,6 @@ app.post('/api/signup', async (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
-    console.log("logging in");
     const { email, password } = req.body;
 
     try {

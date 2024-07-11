@@ -41,7 +41,6 @@ document.getElementById('form').addEventListener('submit', async function (event
         passwordError.textContent = '';
     }
 
-    console.log(API_URL)
     try {
         const response = await fetch(`${API_URL}/api/signup`, {
             method: 'POST',
@@ -57,10 +56,10 @@ document.getElementById('form').addEventListener('submit', async function (event
         }
 
         const result = await response.json();
-        alert(result.message); // Display success message (you may redirect or perform other actions here)
+        window.location.href = '../index.html';
+        alert(result.message);
     } catch (error) {
         console.error('Error:', error.message);
-        // Handle error (display error message, reset form, etc.)
     }
 });
 

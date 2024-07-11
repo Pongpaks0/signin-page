@@ -79,15 +79,29 @@ body {
     background-color: #000;
     color: #fff;
     font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh
 }
 
 .container {
-    max-width: 400px;
+    flex: 1 1 100%;
+    max-width: 80vw;
+    height: fit-content;
     margin: 50px auto;
     padding: 20px;
     background-color: #222;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+    .container {
+        height: auto;
+        max-height: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 h1 {
